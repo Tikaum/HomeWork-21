@@ -14,10 +14,10 @@ namespace HomeWork21.Tests.Tests
         {
         }
 
+        [TearDown]
         public void Teardown()
         {
             DriverManager.Quit();
         }
-
     }
 }

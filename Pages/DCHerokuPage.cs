@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SeleniumExtras.WaitHelpers;
+using OpenQA.Selenium.DevTools.V139.CSS;
 
 namespace HomeWork21.Pages
 {
@@ -18,8 +19,7 @@ namespace HomeWork21.Pages
         private readonly By Checkbox = By.XPath("//form[@id='checkbox-example']/div[@id='checkbox' and text()=' A checkbox']");
         private readonly By ButtonToRemove = By.XPath("//form[@id='checkbox-example']/button[@type='button' and text()='Remove']");
         private readonly By NoteOfMissingCheckbox = By.XPath("//form[@id='checkbox-example']/p[@id='message' and contains(text(), 's gone!')]");
-        private readonly By InputField = By.XPath("//form[@id='input-example']/input[@type='text']");
-        private readonly By InputFieldDIsabled = By.XPath("//form[@id='input-example']/input[@type='text' and @disabled]");
+        private readonly By InputField = By.XPath("//form[@id='input-example']/input[@type='text']");        
         private readonly By ButtonOfInputField = By.XPath("//form[@id='input-example']/button[@type='button']");
         private readonly By NoteOfInputEnable = By.XPath("//form[@id='input-example']/p[@id='message' and contains(text(), 's enabled!')]");
 
@@ -36,15 +36,12 @@ namespace HomeWork21.Pages
 
         public bool IsCheckboxNotExist()
         {
-            try
-            {
-                driver.FindElement(Checkbox);
-                return false;
-            }
-            catch
+            var Checkboxes = driver.FindElements(Checkbox);
+            if (Checkboxes.Count == 0)
             {
                 return true;
             }
+            else return false;
         }
 
         public void RemoveCheckboxA()
@@ -63,17 +60,22 @@ namespace HomeWork21.Pages
             return state;
         }
 
-        public bool IsInputFieldDIsabled()
+        public bool IsInputFieldEnabled(string testText)
         {
-            try
+            var Input = driver.FindElement(InputField);
+            bool IsFormEnable = Input.Enabled;
+            bool IsFormDisplayed = Input.Displayed;
+            if (IsFormEnable & IsFormDisplayed)
             {
-                driver.FindElement(InputFieldDIsabled);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+                Input.SendKeys(testText);
+                string text = Input.GetAttribute("value");
+                if (text == testText)
+                {
+                    return true;
+                }
+                else return false;
+            }            
+            else return false;
         }
 
         public void ClickOnInputButton()
@@ -90,19 +92,6 @@ namespace HomeWork21.Pages
             IWebElement element = wait.Until(ExpectedConditions.ElementIsVisible(NoteOfInputEnable));
             bool state = driver.FindElement(NoteOfInputEnable).Displayed;
             return state;
-        }
-
-        public bool CanIInputTextInField()
-        {
-            try
-            {
-                driver.FindElement(InputField).SendKeys("Qwerty123!");
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        }       
     }
 }

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using HomeWork21.Utils;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -13,7 +14,7 @@ namespace HomeWork21.Pages
     {
         private readonly By ButtonUploadFile = By.Id("uploadFile");
         private readonly By PathOfUploadFile = By.Id("uploadedFilePath");
-        private readonly By ButtonDownloadFile = By.Id("downloadButton");
+        private readonly By ButtonDownloadFile = By.Id("downloadButton");        
 
         public void GoToPageUploadDownloadDQ()
         {
@@ -23,13 +24,14 @@ namespace HomeWork21.Pages
         public void UploadFileWithParam(string filePath)
         {
             driver.FindElement(ButtonUploadFile).SendKeys(filePath);
-            Thread.Sleep(2000);
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            var waitingElement = wait.Until(d => d.FindElement(PathOfUploadFile));
         }
 
         public string GetNameOfUploadFile()
         {
             string FilePath = driver.FindElement(PathOfUploadFile).Text;
-            string FileName = FilePath.Split('\\').LastOrDefault() ?? "";
+            string FileName = FileUtils.GetFileName(FilePath);
             return FileName;
         }
 

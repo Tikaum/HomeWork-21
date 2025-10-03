@@ -10,6 +10,6 @@ namespace HomeWork21.Pages
 {
     public class BasePage
     {
-        protected IWebDriver driver = DriverManager.Driver;
+        protected IWebDriver driver => DriverManager.Driver;       
     }
 }

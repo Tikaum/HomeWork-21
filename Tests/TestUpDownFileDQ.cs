@@ -1,5 +1,6 @@
 ﻿using HomeWork21.Pages;
 using HomeWork21.Tests.Tests;
+using HomeWork21.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace HomeWork21.Tests
         {
             upDown.GoToPageUploadDownloadDQ();
             string filePath = "D:\\123qwe.txt";
-            string fileName = filePath.Split('\\').LastOrDefault() ?? "";
+            string fileName = FileUtils.GetFileName(filePath);
             upDown.UploadFileWithParam(filePath);
             string NameOfUploadFile = upDown.GetNameOfUploadFile();
             Assert.That(NameOfUploadFile, Is.EqualTo(fileName), "The file was not loaded or an invalid name was received.");
