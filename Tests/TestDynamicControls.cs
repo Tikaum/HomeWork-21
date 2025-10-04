@@ -1,0 +1,36 @@
+﻿using HomeWork21.Pages;
+using HomeWork21.Tests.Tests;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork21.Tests
+{
+    public class TestDynamicControls : TestBase
+    {
+        DCHerokuPage dCHeroku = new DCHerokuPage();
+
+        [Test]
+        public void RemoveCheckboxAndEnableInput()
+        {
+            dCHeroku.GoToPageDynamicControlsHeroku();
+            bool stateOfCheckbox = dCHeroku.IsCheckboxExist();
+            Assert.That(stateOfCheckbox, Is.True, "The checkbox does not exist");
+            dCHeroku.RemoveCheckboxA();
+            bool stateOfNote = dCHeroku.IsNoteOfMissingCheckboxExist();
+            Assert.That(stateOfNote, Is.True, "There is no message about the checkbox disappearing, or it contains incorrect text.");
+            stateOfCheckbox = dCHeroku.IsCheckboxNotExist();
+            Assert.That(stateOfCheckbox, Is.True, "The checkbox is displayed");
+            string testText = "123Qwerty!";
+            bool stateOfInput = dCHeroku.IsInputFieldEnabled(testText);            
+            Assert.That(stateOfInput, Is.False, "The field is available for input");           
+            dCHeroku.ClickOnInputButton();
+            bool stateOfNoteFromInput = dCHeroku.IsNoteOfInputEnableExist();
+            stateOfInput = dCHeroku.IsInputFieldEnabled(testText);
+            Assert.That(stateOfNoteFromInput, Is.True, "There is no message about the field's availability, or it contains incorrect text.");
+            Assert.That(stateOfInput, Is.True, "The field is not available for input");
+        }
+    }
+}
