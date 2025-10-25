@@ -9,9 +9,12 @@ namespace HomeWork21.Tests.Tests
 {
     public class TestBase
     {
+        string testcategory;
+
         [SetUp]
         public void Setup()
         {
+            //testcategory = Environment.GetEnvironmentVariable("TEST_CATEGORY");
         }
 
         [TearDown]

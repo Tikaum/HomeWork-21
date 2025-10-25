@@ -14,6 +14,7 @@ namespace HomeWork21.Tests
         DropDQPage dropDQ = new DropDQPage();
 
         [Test]
+        [Category("smoke")]
         [AllureTag("smoke")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureOwner("TimKay")]

@@ -2,17 +2,16 @@
 using Allure.NUnit.Attributes;
 using HomeWork21.Pages;
 using HomeWork21.Tests.Tests;
-using NUnit.Framework;
-using Allure.NUnit;
+
 
 namespace HomeWork21.Tests
 {
-    [AllureNUnit]
     public class TestDynamicControls : TestBase
     {
         DCHerokuPage dCHeroku = new DCHerokuPage();
 
         [Test]
+        [Category("exended")]
         [AllureTag("exended")]
         [AllureSeverity(SeverityLevel.normal)]
         [AllureOwner("TimKay")]

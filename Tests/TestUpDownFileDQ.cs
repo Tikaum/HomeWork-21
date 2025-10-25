@@ -13,7 +13,8 @@ namespace HomeWork21.Tests
     {
         UpDownFileDQPage upDown = new UpDownFileDQPage();
 
-        [Test]        
+        [Test]
+        [Category("smoke")]
         [AllureTag("smoke")]
         [AllureSeverity(SeverityLevel.trivial)]
         [AllureOwner("TimKay")]
@@ -29,6 +30,7 @@ namespace HomeWork21.Tests
         }
 
         [Test]
+        [Category("regression")]
         [AllureTag("regression")]
         [AllureSeverity(SeverityLevel.minor)]
         [AllureOwner("TimKay")]
