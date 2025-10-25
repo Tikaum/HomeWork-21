@@ -1,16 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using SeleniumExtras.WaitHelpers;
-using OpenQA.Selenium.DevTools.V139.CSS;
 
 namespace HomeWork21.Pages
 {
@@ -23,17 +14,20 @@ namespace HomeWork21.Pages
         private readonly By ButtonOfInputField = By.XPath("//form[@id='input-example']/button[@type='button']");
         private readonly By NoteOfInputEnable = By.XPath("//form[@id='input-example']/p[@id='message' and contains(text(), 's enabled!')]");
 
+        [AllureStep("Переход на страницу динамических контролов")]
         public void GoToPageDynamicControlsHeroku()
         {
             driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/dynamic_controls");
         }
 
+        [AllureStep("Проверка наличия чекбокса")]
         public bool IsCheckboxExist()
         {
             bool state = driver.FindElement(Checkbox).Displayed;
             return state;
         }
 
+        [AllureStep("Проверка отсутствия чекбокса")]
         public bool IsCheckboxNotExist()
         {
             var Checkboxes = driver.FindElements(Checkbox);
@@ -44,11 +38,13 @@ namespace HomeWork21.Pages
             else return false;
         }
 
+        [AllureStep("Удаление чекбокса")]
         public void RemoveCheckboxA()
         {
             driver.FindElement(ButtonToRemove).Click();
         }
 
+        [AllureStep("Проверка сообщения о отсутствии чекбокса")]
         public bool IsNoteOfMissingCheckboxExist()
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5))
@@ -60,6 +56,7 @@ namespace HomeWork21.Pages
             return state;
         }
 
+        [AllureStep("Проверка доступности поля для ввода")]
         public bool IsInputFieldEnabled(string testText)
         {
             var Input = driver.FindElement(InputField);
@@ -78,11 +75,13 @@ namespace HomeWork21.Pages
             else return false;
         }
 
+        [AllureStep("Нажатие на кнопку включающую поле ввода")]
         public void ClickOnInputButton()
         {
             driver.FindElement(ButtonOfInputField).Click();
         }
 
+        [AllureStep("Проверка сообщения о доступности поля для ввода")]
         public bool IsNoteOfInputEnableExist()
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5))

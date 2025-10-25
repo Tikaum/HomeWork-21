@@ -1,18 +1,22 @@
-﻿using HomeWork21.Pages;
+﻿using Allure.Net.Commons;
+using Allure.NUnit.Attributes;
+using HomeWork21.Pages;
 using HomeWork21.Tests.Tests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
+using Allure.NUnit;
 
 namespace HomeWork21.Tests
 {
+    [AllureNUnit]
     public class TestDynamicControls : TestBase
     {
         DCHerokuPage dCHeroku = new DCHerokuPage();
 
         [Test]
+        [AllureTag("exended")]
+        [AllureSeverity(SeverityLevel.normal)]
+        [AllureOwner("TimKay")]
+        [AllureSuite("Activating/deactivating a checkbox and input field")]
         public void RemoveCheckboxAndEnableInput()
         {
             dCHeroku.GoToPageDynamicControlsHeroku();

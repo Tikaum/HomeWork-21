@@ -1,4 +1,5 @@
-﻿using HomeWork21.Utils;
+﻿using Allure.NUnit.Attributes;
+using HomeWork21.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -14,13 +15,15 @@ namespace HomeWork21.Pages
     {
         private readonly By ButtonUploadFile = By.Id("uploadFile");
         private readonly By PathOfUploadFile = By.Id("uploadedFilePath");
-        private readonly By ButtonDownloadFile = By.Id("downloadButton");        
+        private readonly By ButtonDownloadFile = By.Id("downloadButton");
 
+        [AllureStep("Переход на страницу с загружаемыми файлами")]
         public void GoToPageUploadDownloadDQ()
         {
             driver.Navigate().GoToUrl("https://demoqa.com/upload-download");
         }
 
+        [AllureStep("Выбор загружаемого файла и его загрузка на сайт")]
         public void UploadFileWithParam(string filePath)
         {
             driver.FindElement(ButtonUploadFile).SendKeys(filePath);
@@ -28,6 +31,7 @@ namespace HomeWork21.Pages
             var waitingElement = wait.Until(d => d.FindElement(PathOfUploadFile));
         }
 
+        [AllureStep("Получение имени загруженного на сайт файла")]
         public string GetNameOfUploadFile()
         {
             string FilePath = driver.FindElement(PathOfUploadFile).Text;
@@ -35,11 +39,13 @@ namespace HomeWork21.Pages
             return FileName;
         }
 
+        [AllureStep("Нажатие на кнопку скачивания файла с сайта")]
         public void DownloadFile()
         {
             driver.FindElement(ButtonDownloadFile).Click();
         }
 
+        [AllureStep("Проверка наличия скачаного с сайта файла")]
         public bool WaitDownloadFile(string downloadPath, string fileName, int timeoutSeconds = 10)
         {
             string filePath = Path.Combine(downloadPath, fileName);

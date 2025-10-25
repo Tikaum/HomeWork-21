@@ -1,19 +1,23 @@
-﻿using HomeWork21.Pages;
+﻿using Allure.Net.Commons;
+using Allure.NUnit.Attributes;
+using HomeWork21.Pages;
 using HomeWork21.Tests.Tests;
 using HomeWork21.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
+using Allure.NUnit;
 
 namespace HomeWork21.Tests
 {
+    [AllureNUnit]
     public class TestUpDownFileDQ : TestBase
     {
         UpDownFileDQPage upDown = new UpDownFileDQPage();
 
-        [Test]
+        [Test]        
+        [AllureTag("smoke")]
+        [AllureSeverity(SeverityLevel.trivial)]
+        [AllureOwner("TimKay")]
+        [AllureSuite("Uploading file on site")]
         public void UploadFile()
         {
             upDown.GoToPageUploadDownloadDQ();
@@ -25,6 +29,10 @@ namespace HomeWork21.Tests
         }
 
         [Test]
+        [AllureTag("regression")]
+        [AllureSeverity(SeverityLevel.minor)]
+        [AllureOwner("TimKay")]
+        [AllureSuite("Downloading file from site")]
         public void DownloadFile()
         {
             upDown.GoToPageUploadDownloadDQ();

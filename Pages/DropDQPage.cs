@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,13 @@ namespace HomeWork21.Pages
         private readonly By SmallRectangle = By.XPath("//div[@id='draggable' and text()='Drag me']");
         private readonly By BigRectangle = By.XPath("//div[@id='droppable']/p[contains(text(), 'Drop')]");
 
+        [AllureStep("Переход на страницу перемещаемых элементов")]
         public void GoToPageDroppableDQ()
         {
             driver.Navigate().GoToUrl("https://demoqa.com/droppable");
         }
 
+        [AllureStep("Перемещение малого элемента на большой")]
         public void DragAndDrop()
         {
             var SR = driver.FindElement(SmallRectangle);
@@ -26,6 +29,7 @@ namespace HomeWork21.Pages
             actions.DragAndDrop(SR, BR).Perform();
         }
 
+        [AllureStep("Получение текста на большом элементе")]
         public string GetTextOnBR()
         {
             string VT = driver.FindElement(BigRectangle).Text;

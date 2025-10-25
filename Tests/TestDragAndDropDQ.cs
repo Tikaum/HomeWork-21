@@ -1,18 +1,23 @@
-﻿using HomeWork21.Pages;
+﻿using Allure.Net.Commons;
+using Allure.NUnit.Attributes;
+using HomeWork21.Pages;
 using HomeWork21.Tests.Tests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
+using Allure.NUnit;
+
 
 namespace HomeWork21.Tests
 {
+    [AllureNUnit]
     public class TestDragAndDropDQ : TestBase
     {
         DropDQPage dropDQ = new DropDQPage();
 
         [Test]
+        [AllureTag("smoke")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureOwner("TimKay")]
+        [AllureSuite("Drag and drop small rectangle on big rectangle")]
         public void DragAndDropRectangle()
         {
             dropDQ.GoToPageDroppableDQ();
