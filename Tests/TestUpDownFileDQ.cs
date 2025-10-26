@@ -1,10 +1,12 @@
 ﻿using Allure.Net.Commons;
+using Allure.NUnit;
 using Allure.NUnit.Attributes;
 using HomeWork21.Pages;
 using HomeWork21.Tests.Tests;
 using HomeWork21.Utils;
 using NUnit.Framework;
-using Allure.NUnit;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 
 namespace HomeWork21.Tests
 {
@@ -22,12 +24,14 @@ namespace HomeWork21.Tests
         [AllureSuite("Uploading file on site")]
         public void UploadFile()
         {
+            IWebDriver driver = new ChromeDriver();
             upDown.GoToPageUploadDownloadDQ();
             string filePath = "D:\\123qwe.txt";
             string fileName = FileUtils.GetFileName(filePath);
             upDown.UploadFileWithParam(filePath);
             string NameOfUploadFile = upDown.GetNameOfUploadFile();
             Assert.That(NameOfUploadFile, Is.EqualTo(fileName), "The file was not loaded or an invalid name was received.");
+            driver.Quit();
         }
 
         [Test]
@@ -39,12 +43,14 @@ namespace HomeWork21.Tests
         [AllureSuite("Downloading file from site")]
         public void DownloadFile()
         {
+            IWebDriver driver = new ChromeDriver();
             upDown.GoToPageUploadDownloadDQ();
             upDown.DownloadFile();
             string downloadPath = "D:\\Downloads";
             string fileName = "sampleFile.jpeg";
             bool successDownload = upDown.WaitDownloadFile(downloadPath, fileName);
             Assert.That(successDownload, "The file was not downloaded or an invalid name was received.");
+            driver.Quit();
         }
     }
 }
