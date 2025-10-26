@@ -5,13 +5,8 @@ pipeline {
     choice(
 	  name:'TEST_CATEGORY',
 	  choices:['exended', 'smoke', 'regression'],
-	  description: 'Set tag'
-	)
-	string(
-	  name:'TEST_TAG',
-	  defaultValue: 'QA',
-	  description: 'Run tests with tag'
-	)
+	  description: 'Set category'
+	)	
   }
   
   stages {
@@ -24,7 +19,6 @@ pipeline {
 		}
       
 	}
-
 		
     stage('Checkout') {
       steps {
@@ -46,8 +40,8 @@ pipeline {
 
     stage('Test') {
       steps {
-	    echo "Select ENV: ${params.TEST_CATEGORY}"
-        bat "dotnet test --filter \"Category=${params.TEST_TAG}\" --logger:\"trx;LogFileName=test-result.trx\""
+	    echo "Select test category: ${params.TEST_CATEGORY}"
+        bat "dotnet test --filter \"Category=${params.TEST_CATEGORY}\" --logger:\"trx;LogFileName=test-result.trx\""
       }
     }	
 
