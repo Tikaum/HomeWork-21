@@ -21,7 +21,8 @@ namespace HomeWork21.Tests
         [AllureOwner("TimKay")]
         [AllureSuite("Activating/deactivating a checkbox and input field")]
         public void RemoveCheckboxAndEnableInput()
-        {            
+        {
+            IWebDriver driver = new ChromeDriver();
             dCHeroku.GoToPageDynamicControlsHeroku();
             bool stateOfCheckbox = dCHeroku.IsCheckboxExist();
             Assert.That(stateOfCheckbox, Is.True, "The checkbox does not exist");

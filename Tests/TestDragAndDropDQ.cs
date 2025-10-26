@@ -24,7 +24,8 @@ namespace HomeWork21.Tests
         [AllureOwner("TimKay")]
         [AllureSuite("Drag and drop small rectangle on big rectangle")]
         public void DragAndDropRectangle()
-        {            
+        {
+            IWebDriver driver = new ChromeDriver();
             dropDQ.GoToPageDroppableDQ();
             dropDQ.DragAndDrop();
             string ValidationText = dropDQ.GetTextOnBR();
