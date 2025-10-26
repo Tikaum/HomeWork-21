@@ -15,6 +15,7 @@ namespace HomeWork21.Tests
 
         [Test]
         [Category("smoke")]
+        [Category("AllTests")]
         [AllureTag("smoke")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureOwner("TimKay")]

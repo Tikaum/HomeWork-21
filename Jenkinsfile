@@ -2,11 +2,11 @@ pipeline {
   agent any
   
   parameters {
-    choice(
-	  name:'TEST_CATEGORY',
-	  choices:['exended', 'smoke', 'regression'],
-	  description: 'Set category'
-	)	
+    string(
+	  name:'TAST_CATEGORY',
+	  defaultValue: 'AllTests',
+	  description: 'Run test with category'
+	)
   }
   
   stages {

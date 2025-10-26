@@ -11,8 +11,9 @@ namespace HomeWork21.Tests
         DCHerokuPage dCHeroku = new DCHerokuPage();
 
         [Test]
-        [Category("exended")]
-        [AllureTag("exended")]
+        [Category("extended")]
+        [Category("AllTests")]
+        [AllureTag("extended")]
         [AllureSeverity(SeverityLevel.normal)]
         [AllureOwner("TimKay")]
         [AllureSuite("Activating/deactivating a checkbox and input field")]
