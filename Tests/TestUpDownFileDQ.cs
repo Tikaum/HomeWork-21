@@ -23,15 +23,14 @@ namespace HomeWork21.Tests
         [AllureOwner("TimKay")]
         [AllureSuite("Uploading file on site")]
         public void UploadFile()
-        {
-            IWebDriver driver = new ChromeDriver();
+        {            
             upDown.GoToPageUploadDownloadDQ();
             string filePath = "D:\\123qwe.txt";
             string fileName = FileUtils.GetFileName(filePath);
             upDown.UploadFileWithParam(filePath);
             string NameOfUploadFile = upDown.GetNameOfUploadFile();
             Assert.That(NameOfUploadFile, Is.EqualTo(fileName), "The file was not loaded or an invalid name was received.");
-            driver.Quit();
+            DriverManager.Quit();
         }
 
         [Test]
@@ -42,15 +41,14 @@ namespace HomeWork21.Tests
         [AllureOwner("TimKay")]
         [AllureSuite("Downloading file from site")]
         public void DownloadFile()
-        {
-            IWebDriver driver = new ChromeDriver();
+        {            
             upDown.GoToPageUploadDownloadDQ();
             upDown.DownloadFile();
             string downloadPath = "D:\\Downloads";
             string fileName = "sampleFile.jpeg";
             bool successDownload = upDown.WaitDownloadFile(downloadPath, fileName);
             Assert.That(successDownload, "The file was not downloaded or an invalid name was received.");
-            driver.Quit();
+            DriverManager.Quit();
         }
     }
 }

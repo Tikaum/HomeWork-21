@@ -2,6 +2,7 @@
 using Allure.NUnit.Attributes;
 using HomeWork21.Pages;
 using HomeWork21.Tests.Tests;
+using HomeWork21.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -20,8 +21,7 @@ namespace HomeWork21.Tests
         [AllureOwner("TimKay")]
         [AllureSuite("Activating/deactivating a checkbox and input field")]
         public void RemoveCheckboxAndEnableInput()
-        {
-            IWebDriver driver = new ChromeDriver();
+        {            
             dCHeroku.GoToPageDynamicControlsHeroku();
             bool stateOfCheckbox = dCHeroku.IsCheckboxExist();
             Assert.That(stateOfCheckbox, Is.True, "The checkbox does not exist");
@@ -38,7 +38,7 @@ namespace HomeWork21.Tests
             stateOfInput = dCHeroku.IsInputFieldEnabled(testText);
             Assert.That(stateOfNoteFromInput, Is.True, "There is no message about the field's availability, or it contains incorrect text.");
             Assert.That(stateOfInput, Is.True, "The field is not available for input");
-            driver.Quit();
+            DriverManager.Quit();
         }
     }
 }
