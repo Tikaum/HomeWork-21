@@ -24,7 +24,10 @@ namespace HomeWork21.Tests
         [AllureSuite("Uploading file on site")]
         public void UploadFile()
         {
-            IWebDriver driver = new ChromeDriver();
+            var options = new ChromeOptions();
+            options.AddArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--window-size=1920,1080");
+            IWebDriver driver = new ChromeDriver(options);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(120);
             upDown.GoToPageUploadDownloadDQ();
             string filePath = "D:\\123qwe.txt";
             string fileName = FileUtils.GetFileName(filePath);
@@ -43,7 +46,10 @@ namespace HomeWork21.Tests
         [AllureSuite("Downloading file from site")]
         public void DownloadFile()
         {
-            IWebDriver driver = new ChromeDriver();
+            var options = new ChromeOptions();
+            options.AddArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--window-size=1920,1080");
+            IWebDriver driver = new ChromeDriver(options);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(120);
             upDown.GoToPageUploadDownloadDQ();
             upDown.DownloadFile();
             string downloadPath = "D:\\Downloads";
