@@ -39,52 +39,29 @@ pipeline {
             steps {
                 echo "Running tests with category: ${params.TEST_CATEGORY}"
                 // Запуск тестов с генерацией .trx и allure-результатов
-                bat "dotnet test --filter \"Category=${params.TEST_CATEGORY}\" --logger:\"trx;LogFileName=TestResults/TestResults/test-result.trx\""
+                bat "dotnet test --filter \"Category=${params.TEST_CATEGORY}\" --logger:\"trx;LogFileName=test-result.trx\""
             }
         }
     }
 
-    post {
-        always {
-            script {
-                // Архивируем .trx отчёты
-                archiveArtifacts artifacts: 'TestResults/TestResults/*.trx', allowEmptyArchive: true
-
-                // Проверяем, что папка с allure-результатами существует
-                def allureResultsExist = bat(
-                    script: "if exist ${env.ALLURE_RESULTS_DIR} (echo true) else (echo false)",
-                    returnStdout: true
-                ).trim()
-
-                if (allureResultsExist == 'true') {
-                    echo "Generating Allure report..."
-                    // Генерация Allure отчёта
-                    bat "allure generate ${env.ALLURE_RESULTS_DIR} --clean -o ${env.ALLURE_REPORT_DIR}"
-
-                    // Публикация Allure отчёта
-                    publishHTML(target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: env.ALLURE_REPORT_DIR,
-                        reportFiles: 'index.html',
-                        reportName: 'Allure Report'
-                    ])
-
-                    // Архивируем Allure отчёт
-                    archiveArtifacts artifacts: "${env.ALLURE_REPORT_DIR}/**/*", allowEmptyArchive: true
-                } else {
-                    echo "Allure results directory not found: ${env.ALLURE_RESULTS_DIR}"
-                }
-            }
-        }
-
-        failure {
-            echo 'Tests failed!'
-        }
-
-        success {
-            echo 'Tests passed!'
-        }
+  post {
+    always {
+	  bat 'allure generate TestResults --clean -o allure-report'
+	  script {
+	    allure([
+      includeProperties: false,
+      jdk: '',
+      results: [[path: 'TestResults']],
+      reportBuildPolicy: 'ALWAYS'
+    ])
+	  }
+	  archiveArtifacts artifacts: '**/*.trx', allowEmptyArchive: true
+	}
+    failure {
+      echo 'Test run is failed!'
     }
+    success {
+      echo 'SUCCESS!!!'
+    }
+  }
 }
