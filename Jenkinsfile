@@ -56,7 +56,7 @@ pipeline {
 	allure(
 	includeProperties: false,
 	jdk: '',
-	results: [(path: 'TestResults')],
+	results: [[path: 'TestResults']],
 	reportBuildPolicy: 'ALWAYS'
 	)
 	}
