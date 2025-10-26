@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        ALLURE_RESULTS_DIR = 'TestResults/allure-results'
+        ALLURE_RESULTS_DIR = 'TestResults/TestResults/allure-results'
         ALLURE_REPORT_DIR = 'allure-report'
     }
 
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 echo "Running tests with category: ${params.TEST_CATEGORY}"
                 // Запуск тестов с генерацией .trx и allure-результатов
-                bat "dotnet test --filter \"Category=${params.TEST_CATEGORY}\" --logger:\"trx;LogFileName=TestResults/test-result.trx\""
+                bat "dotnet test --filter \"Category=${params.TEST_CATEGORY}\" --logger:\"trx;LogFileName=TestResults/TestResults/test-result.trx\""
             }
         }
     }
@@ -48,7 +48,7 @@ pipeline {
         always {
             script {
                 // Архивируем .trx отчёты
-                archiveArtifacts artifacts: 'TestResults/*.trx', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'TestResults/TestResults/*.trx', allowEmptyArchive: true
 
                 // Проверяем, что папка с allure-результатами существует
                 def allureResultsExist = bat(
@@ -60,6 +60,16 @@ pipeline {
                     echo "Generating Allure report..."
                     // Генерация Allure отчёта
                     bat "allure generate ${env.ALLURE_RESULTS_DIR} --clean -o ${env.ALLURE_REPORT_DIR}"
+
+                    // Публикация Allure отчёта
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: env.ALLURE_REPORT_DIR,
+                        reportFiles: 'index.html',
+                        reportName: 'Allure Report'
+                    ])
 
                     // Архивируем Allure отчёт
                     archiveArtifacts artifacts: "${env.ALLURE_REPORT_DIR}/**/*", allowEmptyArchive: true

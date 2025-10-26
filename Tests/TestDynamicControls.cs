@@ -1,4 +1,5 @@
 ﻿using Allure.Net.Commons;
+using Allure.NUnit;
 using Allure.NUnit.Attributes;
 using HomeWork21.Pages;
 using HomeWork21.Tests.Tests;
@@ -9,6 +10,7 @@ using OpenQA.Selenium.Chrome;
 
 namespace HomeWork21.Tests
 {
+    [AllureNUnit]
     public class TestDynamicControls : TestBase
     {
         DCHerokuPage dCHeroku = new DCHerokuPage();
