@@ -46,7 +46,7 @@ pipeline {
 
   post {
     always {
-	  bat 'allure generate TestResults/TestResults/allure-results --clean -o allure-report'
+	  bat 'allure generate bin\\Debug\\net8.0\\allure-results --clean -o allure-report'
 	  script {
 	    allure([
       includeProperties: false,
