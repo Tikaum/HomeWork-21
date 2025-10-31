@@ -28,9 +28,9 @@ namespace HomeWork21.Utils
         {
             var options = new ChromeOptions();
             //options.AddArgument("--start-maximized");
-            //options.AddUserProfilePreference("download.default_directory", "D:\\Downloads");
-            //options.AddUserProfilePreference("download.prompt_for_download", false);
-            //options.AddUserProfilePreference("disable-popup-blocking", true);
+            options.AddUserProfilePreference("download.default_directory", "d:\\downloads");
+            options.AddUserProfilePreference("download.prompt_for_download", false);
+            options.AddUserProfilePreference("disable-popup-blocking", true);
             options.AddArguments(
                 "--headless=new",       // Новый headless-режим Chrome
                 "--no-sandbox",         // Важно для Docker/CI
